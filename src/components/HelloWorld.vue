@@ -3,10 +3,11 @@
         rect(x="0" y="0" width="400" height="320" fill="black")
         line(:x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" :stroke-width="line.width" stroke="brown" fill="none")
         path(:d="polygon_points_text" fill="none" stroke="white" stroke-width="1")
-        circle.p1(:cx="polygon.points[0].x" :cy="polygon.points[0].y" r="3" fill="red")
-        circle.p2(:cx="polygon.points[1].x" :cy="polygon.points[1].y" r="3" fill="blue")
-        circle.p3(:cx="polygon.points[2].x" :cy="polygon.points[2].y" r="3" fill="green")
-        circle.p4(:cx="polygon.points[3].x" :cy="polygon.points[3].y" r="3" fill="purple")
+        circle.p.p1(:cx="polygon.points[0].x" :cy="polygon.points[0].y" r="3" fill="red")
+        circle.p.p2(:cx="polygon.points[1].x" :cy="polygon.points[1].y" r="3" fill="blue")
+        circle.p.p3(:cx="polygon.points[2].x" :cy="polygon.points[2].y" r="3" fill="green")
+        circle.p.p4(:cx="polygon.points[3].x" :cy="polygon.points[3].y" r="3" fill="purple")
+        rect(x="0" y="0" fill="transparent" stroke-width="0" stroke="transparent" width="400" height="320" @pointerdown="pd")
 
 </template>
 
@@ -87,11 +88,20 @@ export default class HelloWorld extends Vue {
             }
         }).join(' ');
     }
+
+    pd(e: PointerEvent): void {
+        this.line = {...this.line, x2: e.offsetX, y2: e.offsetY};
+    }
 }
 </script>
 
 <style scoped lang="less">
 svg {
     outline: 1px solid grey;
+}
+
+circle.p {
+    stroke: white;
+    stroke-width: 1px;
 }
 </style>
